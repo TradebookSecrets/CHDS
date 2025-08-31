@@ -1,27 +1,26 @@
 // === Auto-Reply Tool ===
 const autoReplyForm = document.getElementById("autoReplyForm");
 const replyResult = document.getElementById("replyResult");
-const chatBox = document.getElementById("chatBox");
-const userMessageInput = document.getElementById("userMessage");
-const sendMessageBtn = document.getElementById("sendMessage");
-
-let autoReplies = {};
 
 if (autoReplyForm) {
   autoReplyForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const trigger = document.getElementById("triggerText").value.toLowerCase();
+    const trigger = document.getElementById("triggerText").value;
     const reply = document.getElementById("replyText").value;
 
     if (trigger && reply) {
-      autoReplies[trigger] = reply;
-      replyResult.innerHTML = `<p>✅ Reply saved: "${trigger}" → "${reply}"</p>`;
+      replyResult.innerHTML = `<p>✅ Reply saved: When user says "${trigger}", reply with "${reply}".</p>`;
     } else {
       replyResult.innerHTML = `<p>⚠️ Please fill in both fields.</p>`;
     }
   });
 }
+
+// === Chat Simulator ===
+const chatBox = document.getElementById("chatBox");
+const userMessageInput = document.getElementById("userMessage");
+const sendMessageBtn = document.getElementById("sendMessage");
 
 if (chatBox && userMessageInput && sendMessageBtn) {
   sendMessageBtn.addEventListener("click", sendMessage);
@@ -36,15 +35,8 @@ if (chatBox && userMessageInput && sendMessageBtn) {
     addMessage("user", "🙋 " + msg);
     userMessageInput.value = "";
 
-    let reply = "🤖 I don’t understand yet...";
-    for (let trigger in autoReplies) {
-      if (msg.toLowerCase().includes(trigger)) {
-        reply = "🤖 " + autoReplies[trigger];
-        break;
-      }
-    }
-
-    addMessage("bot", reply);
+    // Example: reply instantly
+    addMessage("bot", "🤖 Auto-reply: " + msg);
   }
 
   function addMessage(sender, text) {
