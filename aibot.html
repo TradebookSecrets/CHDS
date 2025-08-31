@@ -3,40 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHDS BOT</title>
+  <title>CHDS AI BOT | CHDS Automation</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init("1mIRw2ItouJA6eEN3");
-    })();
-  </script>
 </head>
 <body>
+<!-- === Loading Screen === -->
+<div id="loading-screen">
+  <div class="vortex">
+    <div class="core"></div>
+  </div>
+  <p class="loading-text">Activating Auto Reply AI...</p>
+</div>
+
+  <!-- === Header === -->
   <header class="site-header">
-    <div class="logo">🤖 CHDS BOT</div>
+    <div class="logo">🌌 CHDS Automation</div>
     <nav class="navbar" id="navbar">
       <a href="index.html">Home</a>
-      <a href="automation.html">Automation Post</a>
-      <a href="autoreply.html">Automation Reply</a>
-      <a href="request.html">Service Request</a>
-      <a href="aibot.html" class="active">CHDS BOT</a>
+    <a href="automation.html">Automation Post</a>
+    <a href="autoreply.html">Automation Reply</a>
+    <a href="request.html">Service Request</a>
+    <a href="aibot.html">CHDS BOT</a>
+    <a href="https://www.facebook.com/ChReclaimXPH">Contact</a>
     </nav>
     <div class="menu-toggle" id="menu-toggle">☰</div>
   </header>
 
-  <main class="chat-container">
-    <h2>AI Bot Chat</h2>
-    <div id="chatBox" class="chat-box"></div>
+  <!-- === Main Content === -->
+  <main class="auto-reply-page">
+    <section class="hero">
+      <h1>🤖 CHDS AI BOT</h1>
+      <p>Ask me anything! I’ll answer or show you web results.</p>
+    </section>
 
-    <div class="chat-controls">
-      <input type="text" id="userMessage" placeholder="Type your message...">
-      <button id="sendMessage">Send</button>
-    </div>
+    <section class="chat-simulator">
+      <h2>💬 Chat with CHDS AI</h2>
+      <div class="chat-box" id="chatBox">
+        <div class="message bot">🤖 Hi! I’m CHDS AI Bot. Ask me anything!</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userMessage" placeholder="Type your question...">
+        <button id="sendMessage" class="glow-btn">Send</button>
+      </div>
+    </section>
   </main>
 
-  <script src="js/script.js"></script>
-  <script src="js/autoreply.js"></script>
-  <script src="js/aibot.js"></script>
+  <!-- === Footer === -->
+  <footer class="footer">
+    <p>🌌 Galaxy Automation — CHDS AI BOT</p>
+  </footer>
+
+  <!-- === Script for Chat Logic === -->
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const input = document.getElementById("userMessage");
+    const sendBtn = document.getElementById("sendMessage");
+
+    // Replace with your Google API credentials
+    const GOOGLE_API_KEY = "YOUR_GOOGLE_API_KEY"; 
+    const SEARCH_ENGINE_ID = "YOUR_SEARCH_ENGINE_ID"; 
+
+    const responses = {
+      "hello": "👋 Hi there! How can I help you today?",
+      "who are you": "🤖 I’m CHDS AI Bot, created to assist with automation and recovery services.",
+      "help": "⚡ You can ask me about recovery, deletion, or general questions. If I don’t know, I’ll search Google for you!"
+    };
+
+    function addMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.classList.add("message", sender);
+      msg.innerHTML = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function fetchGoogleResults(query) {
+      const url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(query)}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.items && data.items.length > 0) {
+          let reply = "🔎 Here are the top results:<br>";
+          data.items.slice(0, 3).forEach(item => {
+            reply += `👉 <a href="${item.link}" target="_blank">${item.title}</a><br><small>${item.snippet}</small><br><br>`;
+          });
+          addMessage("bot", reply);
+        } else {
+          addMessage("bot", `❌ No results found. Try <a href="https://www.google.com/search?q=${encodeURIComponent(query)}" target="_blank">Google Search</a>.`);
+        }
+      } catch (err) {
+        console.error("Google Search error:", err);
+        addMessage("bot", "⚠️ Error fetching results. Please check your API key & search engine ID.");
+      }
+    }
+
+    function handleMessage() {
+      const userText = input.value.trim();
+      if (!userText) return;
+      addMessage("user", "🙋 " + userText);
+      input.value = "";
+
+      const lowerText = userText.toLowerCase();
+      if (responses[lowerText]) {
+        setTimeout(() => addMessage("bot", responses[lowerText]), 500);
+      } else {
+        setTimeout(() => {
+          addMessage("bot", "⏳ Searching Google...");
+          fetchGoogleResults(userText);
+        }, 700);
+      }
+    }
+
+    sendBtn.addEventListener("click", handleMessage);
+    input.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") handleMessage();
+    });
+  </script>
+
+  <script src="script.js"></script>
+<script src="aibot.js"></script>
 </body>
 </html>
