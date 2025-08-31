@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recovery & Deletion Request</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">🌌 CHDS Automation</div>
+    <button id="menu-toggle">☰</button>
+    <nav id="navbar">
+      <a href="index.html">Home</a>
+      <a href="request.html" class="active">Request</a>
+      <a href="autoreply.html">Auto-Reply</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Recovery & Deletion Request Form</h2>
+    <div class="reminder-box">
+      ⚠️ Reminder: This is a paid service. Include your personal info, contact details, the issue or service you need, and your budget.
+    </div>
+    <form id="requestForm">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      <textarea id="details" name="details" placeholder="Enter details" required></textarea>
+      <button type="submit">Send Request</button>
+    </form>
+    <div id="status"></div>
+  </main>
+
+  <footer class="footer">
+    <p>🌌 Galaxy Automation — Recovery & Deletion Services</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/request.js"></script>
+</body>
+</html>
