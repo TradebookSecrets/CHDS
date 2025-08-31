@@ -3,43 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto Reply Chat</title>
+  <title>Auto Reply | CHDS AI Automation</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
+  <!-- === Loading Screen === -->
+  <div id="loading-screen">
+    <div class="vortex">
+      <div class="core"></div>
+    </div>
+    <p class="loading-text">Activating Auto Reply AI...</p>
+  </div>
+
+  <!-- === Header === -->
+  <header class="site-header">
     <div class="logo">🌌 CHDS Automation</div>
-    <button id="menu-toggle">☰</button>
-    <nav id="navbar">
+    <nav class="navbar" id="navbar">
       <a href="index.html">Home</a>
-      <a href="request.html">Request</a>
-      <a href="autoreply.html" class="active">Auto-Reply</a>
+    <a href="automation.html">Automation Post</a>
+    <a href="autoreply.html">Automation Reply</a>
+    <a href="request.html">Service Request</a>
+    <a href="https://www.facebook.com/ChReclaimXPH">Contact</a>
     </nav>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
   </header>
 
-  <main>
-    <h2>Auto Reply Chat Simulator</h2>
+  <!-- === Main Content === -->
+  <main class="auto-reply-page">
+    <section class="hero">
+      <h1>💬 Auto Reply System</h1>
+      <p>Respond instantly to messages using AI-powered replies.<br>
+      Customize your response templates below.</p>
+    </section>
 
-    <form id="autoReplyForm">
-      <input type="text" id="triggerText" placeholder="Trigger word" required>
-      <input type="text" id="replyText" placeholder="Reply message" required>
-      <button type="submit">Save Reply</button>
-    </form>
-    <div id="replyResult"></div>
+    <section class="autoreply-tool">
+      <h2>⚡ Setup Your Auto Reply</h2>
+      <form id="autoReplyForm">
+        <label for="triggerText">Trigger Word:</label>
+        <input type="text" id="triggerText" placeholder="e.g. hello">
 
-    <div id="chatBox" class="chat-box"></div>
+        <label for="replyText">Auto Reply Message:</label>
+        <textarea id="replyText" rows="3" placeholder="Type your auto-reply..."></textarea>
 
-    <div class="chat-controls">
-      <input type="text" id="userMessage" placeholder="Type a message">
-      <button id="sendMessage">Send</button>
-    </div>
+        <button type="submit" class="glow-btn">Save Reply</button>
+      </form>
+
+      <div id="replyResult"></div>
+    </section>
+
+    <section class="chat-simulator">
+      <h2>💡 Chat Simulator</h2>
+      <div class="chat-box" id="chatBox">
+        <div class="message bot">🤖 Auto Reply AI: Try saying something!</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userMessage" placeholder="Type a message...">
+        <button id="sendMessage" class="glow-btn">Send</button>
+      </div>
+    </section>
   </main>
 
+  <!-- === Footer === -->
   <footer class="footer">
-    <p>🌌 Galaxy Automation — Recovery & Deletion Services</p>
+    <p>🌌 Galaxy Automation — AI Auto Reply</p>
   </footer>
 
-  <script src="js/script.js"></script>
-  <script src="js/autoreply.js"></script>
+    <script src="script.js"></script>
+<script src="aibot.js"></script>
 </body>
 </html>
