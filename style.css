@@ -28,7 +28,7 @@ body {
   text-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
 }
 
-/* Navbar */
+/* === Navigation === */
 .navbar {
   display: flex;
   gap: 20px;
@@ -44,7 +44,53 @@ body {
   text-shadow: 0 0 10px #0ff;
 }
 
-/* === Hero === */
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .navbar.active {
+    display: flex;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* === Holographic Logo === */
+.logo .glow {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0ff;
+  text-shadow: 
+    0 0 10px #0ff, 
+    0 0 20px #0ff, 
+    0 0 40px #f0f, 
+    0 0 80px #0ff;
+  animation: glowPulse 3s infinite ease-in-out;
+}
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #f0f, 0 0 80px #0ff; }
+  50% { text-shadow: 0 0 20px #f0f, 0 0 40px #0ff, 0 0 60px #f0f, 0 0 120px #0ff; }
+}
+
+/* === Hero Section === */
 .hero {
   text-align: center;
   padding: 50px 20px;
@@ -56,11 +102,88 @@ body {
 }
 .hero p {
   font-size: 1.1rem;
+  margin-bottom: 40px;
   color: #ddd;
-  margin-bottom: 20px;
 }
 
-/* === FORM BOX (Automation Tool) === */
+/* === Floating Cards === */
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.card {
+  background: rgba(20,20,40,0.8);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,255,255,0.6);
+}
+.floating {
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* === Loading Screen with Vortex === */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #000 70%, #050a30 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  color: #fff;
+  text-align: center;
+}
+.vortex {
+  width: 120px;
+  height: 120px;
+  border: 6px solid rgba(0, 255, 255, 0.3);
+  border-top: 6px solid #0ff;
+  border-radius: 50%;
+  animation: spin 2s linear infinite, glowPulse 3s infinite ease-in-out;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0,255,255,0.7);
+}
+.vortex .core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: 35px;
+  background: radial-gradient(circle, #0ff, #000);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+.loading-text {
+  margin-top: 25px;
+  font-size: 1.2rem;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+}
+
+/* === Automation Form Box === */
 .automation-tool {
   max-width: 600px;
   margin: 30px auto;
@@ -68,11 +191,15 @@ body {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0,255,255,0.4);
-  text-align: left;
+}
+.automation-tool h2 {
+  margin-bottom: 20px;
+  color: #0ff;
 }
 .automation-tool label {
   display: block;
   margin-top: 15px;
+  text-align: left;
 }
 .automation-tool textarea,
 .automation-tool input {
@@ -106,7 +233,7 @@ body {
   transform: scale(1.05);
 }
 
-/* === CHATBOX (Chat Simulator) === */
+/* === Chatbox Simulator === */
 .chat-simulator {
   max-width: 600px;
   margin: 30px auto;
