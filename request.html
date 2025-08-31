@@ -3,40 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recovery & Deletion Request</title>
+  <title>Request Service | CHDS AI Automation</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("1mIRw2ItouJA6eEN3"); 
+  })();
+</script>
 </head>
 <body>
-  <header>
+  <!-- === Loading Screen === -->
+  <div id="loading-screen">
+    <div class="vortex">
+      <div class="core"></div>
+    </div>
+    <p class="loading-text">Preparing Recovery & Deletion Service...</p>
+  </div>
+
+  <!-- === Header === -->
+  <header class="site-header">
     <div class="logo">🌌 CHDS Automation</div>
-    <button id="menu-toggle">☰</button>
-    <nav id="navbar">
+    <nav class="navbar" id="navbar">
       <a href="index.html">Home</a>
-      <a href="request.html" class="active">Request</a>
-      <a href="autoreply.html">Auto-Reply</a>
+      <a href="automation.html">Automation Post</a>
+      <a href="autoreply.html">Automation Reply</a>
+      <a href="request.html" class="active">Request Service</a>
+      <a href="https://www.facebook.com/ChReclaimXPH">Contact</a>
     </nav>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
   </header>
 
-  <main>
-    <h2>Recovery & Deletion Request Form</h2>
-    <div class="reminder-box">
-      ⚠️ Reminder: This is a paid service. Include your personal info, contact details, the issue or service you need, and your budget.
-    </div>
-    <form id="requestForm">
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
-      <textarea id="details" name="details" placeholder="Enter details" required></textarea>
-      <button type="submit">Send Request</button>
-    </form>
-    <div id="status"></div>
+  <!-- === Main Content === -->
+  <main class="auto-reply-page">
+    <section class="hero">
+      <h1>💬 Recovery & Deletion Service Request</h1>
+      <p>Submit your recovery or deletion request securely.<br>
+      Our team will contact you via your provided email.</p>
+    </section>
+
+    <section class="autoreply-tool">
+      <h2>⚡ Request Form</h2>
+
+      <!-- 🔹 Reminder Notice -->
+      <div class="reminder-box">
+        ⚠️ Reminder: Our service is not free — it is a paid service.  
+        Please include your personal information, contact details,  
+        the issue or service you need, and your budget so we can assist you.
+      </div>
+
+      <!-- 🔹 Form -->
+      <form id="requestForm">
+  <label for="name">Full Name</label>
+  <input type="text" name="name" required>
+  <label for="email">Email</label>
+  <input type="email" name="email" required>
+  <label for="details">Service Details</label>
+  <textarea name="details" required></textarea>
+  <p class="reminder">
+    ⚠️ Reminder: Our service is **not free**. Paid service only.  
+    Please provide your personal information, contact details, issue/service needs, and your budget to assist you.
+  </p>
+  <button type="submit">Submit Request</button>
+</form>
+      <div id="status"></div>
+    </section>
   </main>
 
+  <!-- === Footer === -->
   <footer class="footer">
     <p>🌌 Galaxy Automation — Recovery & Deletion Services</p>
   </footer>
 
-  <script src="js/script.js"></script>
-  <script src="js/request.js"></script>
+  <!-- === Script === -->
+  <script>
+    // Init EmailJS
+    (function() {
+      emailjs.init("1mIRw2ItouJA6eEN3");
+    })();
+
+    // Handle Form Submission
+    const form = document.getElementById("requestForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm("service_yoa6yjz", "template_bj8slhv", this)
+        .then(() => {
+          status.innerHTML = "<p style='color:lime;'>✅ Request sent successfully! We will contact you soon.</p>";
+          form.reset();
+        }, (err) => {
+          status.innerHTML = "<p style='color:red;'>❌ Failed to send. Please try again.</p>";
+          console.error("EmailJS Error:", err);
+        });
+    });
+  </script>  
+
+  <script src="script.js"></script>
+<script src="request.js"></script>
 </body>
 </html>
