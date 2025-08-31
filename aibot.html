@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHDS BOT</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("1mIRw2ItouJA6eEN3");
+    })();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">🤖 CHDS BOT</div>
+    <nav class="navbar" id="navbar">
+      <a href="index.html">Home</a>
+      <a href="automation.html">Automation Post</a>
+      <a href="autoreply.html">Automation Reply</a>
+      <a href="request.html">Service Request</a>
+      <a href="aibot.html" class="active">CHDS BOT</a>
+    </nav>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+  </header>
+
+  <main class="chat-container">
+    <h2>AI Bot Chat</h2>
+    <div id="chatBox" class="chat-box"></div>
+
+    <div class="chat-controls">
+      <input type="text" id="userMessage" placeholder="Type your message...">
+      <button id="sendMessage">Send</button>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script src="js/autoreply.js"></script>
+  <script src="js/aibot.js"></script>
+</body>
+</html>
