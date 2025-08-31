@@ -1,6 +1,5 @@
 // === Recovery & Deletion Request Form ===
 const requestForm = document.getElementById("requestForm");
-const statusBox = document.getElementById("status");
 
 if (requestForm) {
   requestForm.addEventListener("submit", function(e) {
@@ -8,11 +7,11 @@ if (requestForm) {
 
     emailjs.sendForm("service_yoa6yjz", "template_bj8slhv", this)
       .then(() => {
-        statusBox.innerHTML = "<p style='color:lime;'>✅ Request sent successfully! We will contact you soon.</p>";
+        alert("✅ Request sent successfully! We’ll get back to you soon.");
         requestForm.reset();
       })
       .catch((error) => {
-        statusBox.innerHTML = "<p style='color:red;'>❌ Failed to send. Please try again.</p>";
+        alert("⚠️ Failed to send. Please try again.");
         console.error("EmailJS Error:", error);
       });
   });
