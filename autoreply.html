@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Reply Chat</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">🌌 CHDS Automation</div>
+    <button id="menu-toggle">☰</button>
+    <nav id="navbar">
+      <a href="index.html">Home</a>
+      <a href="request.html">Request</a>
+      <a href="autoreply.html" class="active">Auto-Reply</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Auto Reply Chat Simulator</h2>
+
+    <form id="autoReplyForm">
+      <input type="text" id="triggerText" placeholder="Trigger word" required>
+      <input type="text" id="replyText" placeholder="Reply message" required>
+      <button type="submit">Save Reply</button>
+    </form>
+    <div id="replyResult"></div>
+
+    <div id="chatBox" class="chat-box"></div>
+
+    <div class="chat-controls">
+      <input type="text" id="userMessage" placeholder="Type a message">
+      <button id="sendMessage">Send</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🌌 Galaxy Automation — Recovery & Deletion Services</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/autoreply.js"></script>
+</body>
+</html>
