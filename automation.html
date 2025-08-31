@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation | CHDS AI Automation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- === Loading Screen === -->
+  <div id="loading-screen">
+    <div class="vortex">
+      <div class="core"></div>
+    </div>
+    <p class="loading-text">Preparing automation tools...</p>
+  </div>
+
+  <!-- === Header === -->
+  <header class="site-header">
+    <div class="logo">🌌 CHDS Automation</div>
+    <nav class="navbar" id="navbar">
+      <a href="index.html">Home</a>
+    <a href="automation.html">Automation Post</a>
+    <a href="autoreply.html">Automation Reply</a>
+    <a href="request.html">Service Request</a>
+    <a href="https://www.facebook.com/ChReclaimXPH">Contact</a>
+    </nav>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+  </header>
+
+  <!-- === Main Content === -->
+  <main class="automation-page">
+    <section class="hero">
+      <h1>🚀 Social Media Automation</h1>
+      <p>Manage posts & messages with AI-powered automation tools.<br>
+      Designed for <strong>Meta (Facebook/Instagram)</strong> workflows.</p>
+    </section>
+
+    <section class="automation-tool">
+      <h2>📌 Auto-Posting Simulator</h2>
+      <form id="autoPostForm">
+        <label for="postText">Your Post:</label>
+        <textarea id="postText" rows="4" placeholder="Type your post content here..."></textarea>
+
+        <label for="scheduleTime">Schedule Time:</label>
+        <input type="datetime-local" id="scheduleTime">
+
+        <button type="submit" class="glow-btn">Schedule Post</button>
+      </form>
+      <div id="postResult"></div>
+    </section>
+  </main>
+
+  <!-- === Footer === -->
+  <footer class="footer">
+    <p>🌌 Galaxy Automation — Future of AI Auto Posting</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
