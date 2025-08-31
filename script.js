@@ -4,7 +4,8 @@ window.addEventListener("load", () => {
   const mainContent = document.getElementById("main-content");
   const loadingText = document.querySelector(".loading-text");
 
-  // Random AI startup phrases
+  if (!loadingScreen || !mainContent || !loadingText) return;
+
   const phrases = [
     "Welcome to CHDS Ai Automation. Initializing systems, please wait.",
     "System reboot complete. Engaging neural protocols.",
@@ -15,32 +16,32 @@ window.addEventListener("load", () => {
   ];
   const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
 
-  // Try voice, else fallback to typing
   if ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) {
     const utterance = new SpeechSynthesisUtterance(randomPhrase);
     utterance.rate = 0.9;
     utterance.pitch = 1.2;
-    utterance.volume = 2;
+    utterance.volume = 1; // fixed range
     speechSynthesis.speak(utterance);
     loadingText.textContent = randomPhrase;
   } else {
-    console.warn("Speech synthesis not supported → typing fallback.");
     loadingText.textContent = "";
     let i = 0;
     const typing = setInterval(() => {
-      loadingText.textContent += randomPhrase[i];
-      i++;
-      if (i >= randomPhrase.length) clearInterval(typing);
+      if (i < randomPhrase.length) {
+        loadingText.textContent += randomPhrase[i];
+        i++;
+      } else {
+        clearInterval(typing);
+      }
     }, 50);
   }
 
-  // Fade out after 2.5s
   setTimeout(() => {
     loadingScreen.style.transition = "opacity 0.8s ease";
     loadingScreen.style.opacity = "0";
     setTimeout(() => {
       loadingScreen.style.display = "none";
-      if (mainContent) mainContent.style.display = "block";
+      mainContent.style.display = "block";
     }, 800);
   }, 2000);
 });
@@ -49,117 +50,102 @@ window.addEventListener("load", () => {
 const menuToggle = document.getElementById("menu-toggle");
 const navbar = document.getElementById("navbar");
 
-if (menuToggle) {
+if (menuToggle && navbar) {
   menuToggle.addEventListener("click", () => {
     navbar.classList.toggle("active");
   });
 }
 
 // === Automation Form Simulation ===
-document.getElementById("autoPostForm")?.addEventListener("submit", function(e) {
-  e.preventDefault();
-  const postText = document.getElementById("postText").value;
-  const scheduleTime = document.getElementById("scheduleTime").value;
-  const result = document.getElementById("postResult");
+const autoPostForm = document.getElementById("autoPostForm");
+if (autoPostForm) {
+  autoPostForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const postText = document.getElementById("postText").value;
+    const scheduleTime = document.getElementById("scheduleTime").value;
+    const result = document.getElementById("postResult");
 
-  if (postText && scheduleTime) {
-    result.textContent = `✅ Post scheduled: "${postText}" at ${scheduleTime}`;
-  } else {
-    result.textContent = "⚠️ Please fill in all fields.";
-  }
-});
+    if (postText && scheduleTime) {
+      result.textContent = `✅ Post scheduled: "${postText}" at ${scheduleTime}`;
+    } else {
+      result.textContent = "⚠️ Please fill in all fields.";
+    }
+  });
+}
 
 // === Auto Reply System ===
 let autoReplies = {};
-
-document.getElementById("autoReplyForm")?.addEventListener("submit", function(e) {
-  e.preventDefault();
-  const trigger = document.getElementById("triggerText").value.toLowerCase();
-  const reply = document.getElementById("replyText").value;
-  const result = document.getElementById("replyResult");
-
-  if (trigger && reply) {
-    autoReplies[trigger] = reply;
-    result.textContent = `✅ Auto-reply set: "${trigger}" → "${reply}"`;
-  } else {
-    result.textContent = "⚠️ Please enter trigger and reply.";
-  }
-});
-
-document.getElementById("sendMessage")?.addEventListener("click", function() {
-  const userMessage = document.getElementById("userMessage").value;
-  const chatBox = document.getElementById("chatBox");
-
-  if (!userMessage) return;
-
-  // Show user message
-  chatBox.innerHTML += `<div class="message user">${userMessage}</div>`;
-
-  // Check auto reply
-  let reply = "🤖 I don’t understand yet...";
-  for (let trigger in autoReplies) {
-    if (userMessage.toLowerCase().includes(trigger)) {
-      reply = "🤖 " + autoReplies[trigger];
-      break;
-    }
-  }
-
-  // Show bot reply
-  setTimeout(() => {
-    chatBox.innerHTML += `<div class="message bot">${reply}</div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 500);
-
-  document.getElementById("userMessage").value = "";
-});
-
-// Initialize EmailJS
-(function() {
-  emailjs.init("1mIRw2ItouJA6eEN3");
-})();
-
-document.getElementById("requestForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-  let chatBox = document.getElementById("chatBox");
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
-  let message = document.getElementById("message").value; 
-
-  // Show user message as a chat bubble
-  chatBox.innerHTML += `<div class="message user">📤 ${message}</div>`;
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  emailjs.sendForm("service_yoa6yjz", "template_bj8slhv", this)
-    .then(function() {
-      chatBox.innerHTML += `<div class="message bot">✅ Thanks ${name}! Your request has been sent successfully.</div>`;
-      document.getElementById("status").innerHTML = "";
-      document.getElementById("status").className = "success";
-    }, function(error) {
-      chatBox.innerHTML += `<div class="message bot">❌ Sorry ${name}, your request could not be sent. Try again later.</div>`;
-      document.getElementById("status").innerHTML = "";
-      document.getElementById("status").className = "error";
-      console.error("EmailJS Error:", error);
-    });
-
-  // Reset form
-  this.reset();
-});
-
-// === Recovery & Deletion Request Form ===
-const requestForm = document.getElementById("requestForm");
-
-if (requestForm) {
-  requestForm.addEventListener("submit", function(e) {
+const autoReplyForm = document.getElementById("autoReplyForm");
+if (autoReplyForm) {
+  autoReplyForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    const trigger = document.getElementById("triggerText").value.toLowerCase();
+    const reply = document.getElementById("replyText").value;
+    const result = document.getElementById("replyResult");
 
-    emailjs.sendForm("service_yoa6yjz", "template_bj8slhv", this)
+    if (trigger && reply) {
+      autoReplies[trigger] = reply;
+      result.textContent = `✅ Auto-reply set: "${trigger}" → "${reply}"`;
+    } else {
+      result.textContent = "⚠️ Please enter trigger and reply.";
+    }
+  });
+}
+
+const sendMessageBtn = document.getElementById("sendMessage");
+if (sendMessageBtn) {
+  sendMessageBtn.addEventListener("click", () => {
+    const userMessageInput = document.getElementById("userMessage");
+    const chatBox = document.getElementById("chatBox");
+    if (!userMessageInput || !chatBox) return;
+
+    const userMessage = userMessageInput.value;
+    if (!userMessage) return;
+
+    chatBox.innerHTML += `<div class="message user">${userMessage}</div>`;
+
+    let reply = "🤖 I don’t understand yet...";
+    for (let trigger in autoReplies) {
+      if (userMessage.toLowerCase().includes(trigger)) {
+        reply = "🤖 " + autoReplies[trigger];
+        break;
+      }
+    }
+
+    setTimeout(() => {
+      chatBox.innerHTML += `<div class="message bot">${reply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }, 500);
+
+    userMessageInput.value = "";
+  });
+}
+
+// === EmailJS Initialization ===
+if (typeof emailjs !== "undefined") {
+  emailjs.init("1mIRw2ItouJA6eEN3");
+}
+
+const requestForm = document.getElementById("requestForm");
+if (requestForm) {
+  requestForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const chatBox = document.getElementById("chatBox");
+    const name = document.getElementById("name").value;
+    const message = document.getElementById("message").value;
+
+    if (chatBox) {
+      chatBox.innerHTML += `<div class="message user">📤 ${message}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    emailjs.sendForm("service_yoa6yjz", "template_bj8slhv", requestForm)
       .then(() => {
-        alert("✅ Request sent successfully! We’ll get back to you soon.");
+        if (chatBox) chatBox.innerHTML += `<div class="message bot">✅ Thanks ${name}! Your request has been sent successfully.</div>`;
         requestForm.reset();
       })
       .catch((error) => {
-        alert("⚠️ Failed to send. Please try again.");
+        if (chatBox) chatBox.innerHTML += `<div class="message bot">❌ Sorry ${name}, your request could not be sent. Try again later.</div>`;
         console.error("EmailJS Error:", error);
       });
   });
