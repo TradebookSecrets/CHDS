@@ -1,39 +1,51 @@
-// === AI Bot Simple Reply System ===
-const chatBoxAI = document.getElementById("chatBox");
-const userMessageInputAI = document.getElementById("userMessage");
-const sendMessageBtnAI = document.getElementById("sendMessage");
+// === AI Bot Chat ===
+const botChatBox = document.getElementById("chatBox");
+const botInput = document.getElementById("userMessage");
+const botSendBtn = document.getElementById("sendMessage");
 
-if (chatBoxAI && userMessageInputAI && sendMessageBtnAI) {
-  sendMessageBtnAI.addEventListener("click", sendAIMessage);
-  userMessageInputAI.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendAIMessage();
+if (botChatBox && botInput && botSendBtn) {
+  const responses = {
+    "hello": "👋 Hi there! How can I help you today?",
+    "who are you": "🤖 I’m CHDS AI Bot, created to assist with automation and recovery services.",
+    "help": "⚡ You can ask me about recovery, deletion, or general questions. If I don’t know, I’ll search Google for you!"
+  };
+
+  botSendBtn.addEventListener("click", handleMessage);
+  botInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleMessage();
   });
 
-  function sendAIMessage() {
-    const msg = userMessageInputAI.value.trim();
-    if (!msg) return;
+  function handleMessage() {
+    const userText = botInput.value.trim();
+    if (!userText) return;
+    addMessage("user", "🙋 " + userText);
+    botInput.value = "";
 
-    addMessage("user", "🙋 " + msg);
-    userMessageInputAI.value = "";
-
-    // Simple keyword-based AI logic
-    let reply = "🤖 Sorry, I don’t understand yet.";
-    if (msg.toLowerCase().includes("hello")) {
-      reply = "🤖 Hello! How can I help you today?";
-    } else if (msg.toLowerCase().includes("help")) {
-      reply = "🤖 I can assist with automation, service requests, and auto-replies.";
-    } else if (msg.toLowerCase().includes("bye")) {
-      reply = "🤖 Goodbye! Talk to you soon.";
+    const lowerText = userText.toLowerCase();
+    if (responses[lowerText]) {
+      setTimeout(() => addMessage("bot", responses[lowerText]), 500);
+    } else {
+      fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(userText)}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.AbstractText) {
+            addMessage("bot", `🔎 ${data.AbstractText}`);
+          } else {
+            const googleLink = `https://www.google.com/search?q=${encodeURIComponent(userText)}`;
+            addMessage("bot", `🤔 I’m not sure, but here’s a Google search: <a href="${googleLink}" target="_blank">Search Results</a>`);
+          }
+        })
+        .catch(() => {
+          addMessage("bot", "⚠️ Sorry, I couldn’t reach search services.");
+        });
     }
-
-    setTimeout(() => addMessage("bot", reply), 400);
   }
 
   function addMessage(sender, text) {
-    const msgElem = document.createElement("div");
-    msgElem.classList.add("message", sender);
-    msgElem.innerHTML = text;
-    chatBoxAI.appendChild(msgElem);
-    chatBoxAI.scrollTop = chatBoxAI.scrollHeight;
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.innerHTML = text;
+    botChatBox.appendChild(msg);
+    botChatBox.scrollTop = botChatBox.scrollHeight;
   }
 }
