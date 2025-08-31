@@ -1,4 +1,6 @@
-/* === Global Galaxy Theme === */
+/* ==============================
+   🌌 GLOBAL GALAXY THEME
+============================== */
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
@@ -7,7 +9,9 @@ body {
   overflow-x: hidden;
 }
 
-/* === Header Styles === */
+/* ==============================
+   🔝 HEADER & NAVBAR
+============================== */
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -31,12 +35,11 @@ body {
   animation: glowPulse 3s infinite ease-in-out;
 }
 
-/* Navigation */
+/* Navbar */
 .navbar {
   display: flex;
   gap: 20px;
 }
-
 .navbar a {
   color: #fff;
   text-decoration: none;
@@ -45,7 +48,6 @@ body {
   padding: 8px 15px;
   border-radius: 10px;
 }
-
 .navbar a:hover,
 .navbar a.active {
   color: #0ff;
@@ -53,14 +55,13 @@ body {
   box-shadow: 0 0 10px #0ff;
 }
 
-/* Mobile Menu Toggle */
+/* Mobile Menu */
 .menu-toggle {
   display: none;
   font-size: 1.8rem;
   color: #fff;
   cursor: pointer;
 }
-
 @media (max-width: 768px) {
   .navbar {
     display: none;
@@ -75,17 +76,13 @@ body {
     padding: 15px;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
   }
-
-  .navbar.active {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
+  .navbar.active { display: flex; }
+  .menu-toggle { display: block; }
 }
 
-/* === Hero === */
+/* ==============================
+   🌠 HERO SECTIONS
+============================== */
 .hero {
   text-align: center;
   padding: 50px 20px;
@@ -113,7 +110,9 @@ body {
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
-/* === Cards === */
+/* ==============================
+   🃏 FLOATING CARDS
+============================== */
 .cards {
   display: flex;
   justify-content: center;
@@ -135,7 +134,82 @@ body {
   50% { transform: translateY(-10px); }
 }
 
-/* === Chat Simulator === */
+/* ==============================
+   ⚙️ AUTOMATION PAGE
+============================== */
+.automation-page {
+  padding: 60px 20px;
+  text-align: center;
+  color: #fff;
+}
+.automation-tool {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+.automation-tool h2 {
+  margin-bottom: 20px;
+  color: #0ff;
+}
+.automation-tool label {
+  display: block;
+  margin-top: 15px;
+  text-align: left;
+}
+.automation-tool textarea,
+.automation-tool input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+.glow-btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: #fff;
+  background: linear-gradient(90deg, #0ff, #f0f);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.glow-btn:hover {
+  box-shadow: 0 0 20px #0ff, 0 0 30px #f0f;
+  transform: scale(1.05);
+}
+#postResult {
+  margin-top: 20px;
+  color: #0ff;
+  font-weight: bold;
+}
+
+/* ==============================
+   🤖 AUTO REPLY PAGE
+============================== */
+.auto-reply-page {
+  padding: 60px 20px;
+  text-align: center;
+  color: #fff;
+}
+.autoreply-tool {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+
+/* ==============================
+   💬 CHAT SIMULATOR
+============================== */
 .chat-simulator {
   margin: 2rem auto;
   max-width: 800px;
@@ -144,7 +218,6 @@ body {
   padding: 20px;
   box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
 }
-
 .chat-box {
   background: #0d0d1a;
   border: 2px solid rgba(0, 255, 200, 0.4);
@@ -154,7 +227,6 @@ body {
   padding: 15px;
   margin-bottom: 15px;
 }
-
 .message {
   padding: 12px 15px;
   margin: 8px 0;
@@ -176,8 +248,6 @@ body {
   text-align: left;
   box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
 }
-
-/* Chat Input */
 .chat-input {
   display: flex;
   gap: 10px;
@@ -210,10 +280,67 @@ body {
   box-shadow: 0 0 15px rgba(0, 255, 200, 0.8);
 }
 
-/* Animations */
+/* ==============================
+   ⏳ LOADING SCREEN
+============================== */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #000 70%, #050a30 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  color: #fff;
+  text-align: center;
+}
+.vortex {
+  width: 120px;
+  height: 120px;
+  border: 6px solid rgba(0, 255, 255, 0.3);
+  border-top: 6px solid #0ff;
+  border-radius: 50%;
+  animation: spin 2s linear infinite, glowPulse 3s infinite ease-in-out;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0,255,255,0.7);
+}
+.vortex .core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: 35px;
+  background: radial-gradient(circle, #0ff, #000);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff inset;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+.loading-text {
+  margin-top: 25px;
+  font-size: 1.2rem;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #f0f;
+}
+
+/* ==============================
+   🎬 ANIMATIONS
+============================== */
 @keyframes glowPulse {
   0%, 100% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #f0f; }
   50% { text-shadow: 0 0 20px #f0f, 0 0 40px #0ff, 0 0 60px #f0f; }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
